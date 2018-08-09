@@ -1,22 +1,20 @@
 import * as React from "react";
 
 import {RegularPolygon} from "react-konva";
-import * as Konva from "konva";
 
-type MapTileProps = {q: number, r: number, width: number, center_x: number, center_y: number};
-type MapTileState = {color: string};
+export interface MapTileProps {
+    q: number;
+    r: number;
+    width: number;
+    center_x: number;
+    center_y: number;
+};
+export interface MapTileState {};
 
 
-export class MapTile extends React.Component<MapTileProps, MapTileState> {
-    constructor(props: MapTileProps) {
-	super(props);
-	this.state = {color: Konva.Util.getRandomColor()}
-	this.handleClick = this.handleClick.bind(this);
-    }
+export abstract class MapTile<P extends MapTileProps, S extends MapTileState> extends React.Component<P, S> {
 
-    handleClick() {
-	this.setState({color: Konva.Util.getRandomColor()})
-    }
+    abstract getColor() : string;
 
     render() {
         return (
@@ -25,8 +23,7 @@ export class MapTile extends React.Component<MapTileProps, MapTileState> {
 	    y={this.props.center_y + this.props.width * 3/4 * this.props.r}
 	    sides={6}
 	    radius={this.props.width / 2}
-            fill={this.state.color}
-            onClick={this.handleClick}
+            fill={this.getColor()}
     	  /> 
         );
     }
