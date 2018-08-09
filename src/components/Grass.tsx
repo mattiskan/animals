@@ -15,6 +15,6 @@ export class Grass extends MapTile<MapTileProps, GrassState> {
     }
 
     getColor() {
-	return this.state.grassiness < 0.9? 'green' : 'yellow';
+	return 'rgb(' + this.state.grassiness * 255 + ',255,70)';
     }
 };
