@@ -23,7 +23,7 @@ export class Map extends React.Component<{}, {}> {
 	    for(var q=-this.statics.mapRadiusInTiles; q <= this.statics.mapRadiusInTiles; q++)
 		if(Math.abs(r + q) <= this.statics.mapRadiusInTiles)
 
-		    if(Math.random() < 0.8)
+		    if(Math.random() * Math.abs(r + q)  * Math.abs(r - q) < this.statics.mapRadiusInTiles * 10)
     			tiles.push(
                             <Grass
                             key={[r,q].join(',')}
