@@ -3,34 +3,29 @@ import * as React from "react";
 import {RegularPolygon} from "react-konva";
 import * as Konva from "konva";
 
-type MapTileProps = {q: number, r: number};
-type MapTileState = {q: number, r: number};
+type MapTileProps = {q: number, r: number, width: number, center_x: number, center_y: number};
+type MapTileState = {color: string};
 
-const Center = {x: 600, y: 500};
-
-const TILE_WIDTH = 100;
 
 export class MapTile extends React.Component<MapTileProps, MapTileState> {
     constructor(props: MapTileProps) {
 	super(props);
-	this.state = props;	
+	this.state = {color: Konva.Util.getRandomColor()}
 	this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-	this.setState({q: this.state.q + 1, r: this.state.r - 1})
+	this.setState({color: Konva.Util.getRandomColor()})
     }
 
     render() {
         return (
           <RegularPolygon
-            x={Center.x + TILE_WIDTH * Math.sqrt(3)/2 * (this.state.r/2 + this.state.q)}
-	    y={Center.y + TILE_WIDTH * 3/4 * this.state.r}
+            x={this.props.center_x + this.props.width * Math.sqrt(3)/2 * (this.props.r/2 + this.props.q)}
+	    y={this.props.center_y + this.props.width * 3/4 * this.props.r}
 	    sides={6}
-	    radius={TILE_WIDTH / 2}
-            fill={Konva.Util.getRandomColor()}
-//	    stroke='black'
-//	    strokeWidth={1}
+	    radius={this.props.width / 2}
+            fill={this.state.color}
             onClick={this.handleClick}
     	  /> 
         );
